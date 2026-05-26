@@ -11,43 +11,43 @@ const Github = ({ size = 24 }: { size?: number }) => (
 const projects = [
   {
     id: 1,
-    title: 'E-commerce React Dashboard',
-    description: 'Panel de administración completo para tiendas online. Incluye gestión de inventario, análisis de ventas y control de usuarios.',
-    image: '/images/project-placeholder.jpg',
-    tags: ['React', 'Tailwind CSS', 'Node.js', 'PostgreSQL'],
+    title: 'Vinacoteca',
+    description: 'Aplicación web para la gestión de una vinacoteca, permitiendo a los usuarios explorar, agregar y organizar su colección de vinos con una interfaz intuitiva y moderna.',
+    image: '/images/vinacoteca.png',
+    tags: ['React', 'Tailwind CSS', 'Node.js', 'noSQL'],
     links: {
-      github: '#',
-      live: '#'
+      github: 'https://github.com/agudotorelloarnau/Vinacoteca',
+      live: 'https://proyecto-api-sigma.vercel.app'
     }
   },
   {
     id: 2,
-    title: 'App de Gestión de Tareas',
-    description: 'Aplicación web progresiva (PWA) para organizar proyectos personales y colaborativos con actualizaciones en tiempo real.',
-    image: '/images/project-placeholder.jpg',
-    tags: ['Vite', 'React', 'Firebase', 'Framer Motion'],
+    title: 'Proyecto Pescadería',
+    description: 'Plataforma de comercio electrónico para una pescadería local, con catálogo de productos.',
+    image: '/images/projectebacalla.png',
+    tags: ['Vite', 'React', 'noSQL', 'Tailwind CSS', 'IA'],
     links: {
       github: '#',
-      live: '#'
+      live: 'https://frontiabacalla.vercel.app'
     }
   },
   {
     id: 3,
-    title: 'API RESTful para Blog',
-    description: 'Backend robusto construido para una plataforma de blogging con autenticación JWT, roles de usuario y paginación.',
-    image: '/images/project-placeholder.jpg',
-    tags: ['Express', 'MongoDB', 'JWT', 'Jest'],
+    title: 'Documentación Shopify',
+    description: 'Rediseño de la documentación de Shopify, mejorando la navegación y la experiencia del usuario para desarrolladores que integran con la plataforma.',
+    image: '/images/documentacionShopify.png',
+    tags: ['PHP', 'MySQL', 'Bootstrap'],
     links: {
-      github: '#',
-      live: '#'
+      github: 'https://github.com/arnauagudofpllefia/codespaces-for-php-demo/tree/proyectoShopify',
+      live: 'https://proyectoshopify.onrender.com'
     }
   },
   {
     id: 4,
-    title: 'Landing Page Corporativa',
-    description: 'Diseño moderno y responsive para una empresa tecnológica, optimizado para SEO y alto rendimiento en métricas web.',
+    title: 'App de reservas de gimnasio (en desarrollo)',
+    description: 'Aplicación móvil para la gestión de reservas en un gimnasio, permitiendo a los usuarios reservar maquinas y gestionar su membresía.',
     image: '/images/project-placeholder.jpg',
-    tags: ['HTML5', 'CSS3', 'JavaScript', 'GSAP'],
+    tags: ['Next.js', 'Tailwind CSS', 'JWT', 'Laravel', 'MySQL'],
     links: {
       github: '#',
       live: '#'
@@ -87,9 +87,6 @@ export default function Projects() {
         className="mb-16"
       >
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Proyectos Destacados</h1>
-        <p className="text-xl text-zinc-400 max-w-2xl">
-          Una selección de mis trabajos más recientes en desarrollo web, aplicando diferentes tecnologías y enfoques para resolver problemas reales.
-        </p>
       </motion.div>
 
       <motion.div 

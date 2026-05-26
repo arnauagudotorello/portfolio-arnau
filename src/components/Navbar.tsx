@@ -75,7 +75,7 @@ export default function Navbar() {
 
             <div className="flex items-center gap-4 ml-4 border-l border-[#333] pl-6">
               <a
-                href="https://github.com"
+                href="https://github.com/agudotorelloarnau"
                 target="_blank"
                 rel="noreferrer"
                 className="text-zinc-400 hover:text-white transition-colors"
@@ -84,7 +84,7 @@ export default function Navbar() {
                 <Github size={20} />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/arnau-agudo-torell%C3%B3-b05587244"
                 target="_blank"
                 rel="noreferrer"
                 className="text-zinc-400 hover:text-white transition-colors"
@@ -93,7 +93,7 @@ export default function Navbar() {
                 <Linkedin size={20} />
               </a>
               <a
-                href="/cv-arnau.pdf"
+                href="/images/CV_arnauAgudo.pdf"
                 download
                 className="flex items-center gap-2 px-4 py-2 bg-[var(--color-brand-500)] hover:bg-[var(--color-brand-600)] text-[#121212] font-semibold rounded-lg transition-colors text-sm ml-2"
               >
@@ -141,15 +141,15 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="flex items-center gap-6 px-3 py-4 mt-4 border-t border-[#333]">
-              <a href="https://github.com" className="text-zinc-400 hover:text-white">
+              <a href="https://github.com/agudotorelloarnau" className="text-zinc-400 hover:text-white">
                 <Github size={24} />
               </a>
-              <a href="https://linkedin.com" className="text-zinc-400 hover:text-white">
+              <a href="https://www.linkedin.com/in/arnau-agudo-torell%C3%B3-b05587244" className="text-zinc-400 hover:text-white">
                 <Linkedin size={24} />
               </a>
             </div>
             <a
-              href="/cv-arnau.pdf"
+              href="/images/CV_arnauAgudo.pdf"
               download
               className="mt-2 flex items-center justify-center gap-2 w-full px-4 py-3 bg-[var(--color-brand-500)] text-[#121212] font-bold rounded-lg"
             >

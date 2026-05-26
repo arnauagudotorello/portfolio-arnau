@@ -17,6 +17,7 @@ import {
   SiVite
 } from 'react-icons/si';
 import type { IconType } from 'react-icons';
+import { useLanguage } from '../context/LanguageContext';
 
 import type { Variants } from 'framer-motion';
 
@@ -24,8 +25,6 @@ const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
 };
-
-const heroText = 'Arnau Agudo Torelló\nDesarrollador web';
 
 type Technology = {
   name: string;
@@ -49,8 +48,10 @@ const technologies: Technology[] = [
 ];
 
 export default function Home() {
+  const { t } = useLanguage();
   const [typedText, setTypedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
+  const heroText = `${t.home.heroName}\n${t.home.heroRole}`;
 
   const [typedName, typedRole = ''] = typedText.split('\n');
   const outerTechnologies = technologies.slice(0, 8);
@@ -60,6 +61,11 @@ export default function Home() {
   const innerRotation = useMotionValue(0);
   const scrollBoostRef = useRef(0);
   const lastScrollYRef = useRef(0);
+  useEffect(() => {
+    setTypedText('');
+    setIsDeleting(false);
+  }, [heroText]);
+
   useEffect(() => {
     const typingSpeed = 100;
     const deletingSpeed = 60;
@@ -137,7 +143,7 @@ export default function Home() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-brand-500)] opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-brand-500)]"></span>
           </span>
-          Disponible para trabajar
+          {t.home.availableForWork}
         </motion.div>
 
         <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-bold mb-8 tracking-tight" aria-label={heroText}>
@@ -243,12 +249,12 @@ export default function Home() {
           <div className="h-12 w-12 bg-[#2a2a2a] rounded-xl flex items-center justify-center mb-6 border border-[#444] text-[var(--color-brand-500)]">
             <User size={24} />
           </div>
-          <h2 className="text-2xl font-bold mb-4">Sobre mí</h2>
+          <h2 className="text-2xl font-bold mb-4">{t.home.aboutTitle}</h2>
           <p className="text-zinc-400 mb-8 leading-relaxed">
-            Descubre mi trayectoria académica y profesional. Desde mis inicios en sistemas microinformáticos hasta mi actual formación en desarrollo web, además de mis habilidades y competencias clave.
+            {t.home.aboutDescription}
           </p>
           <Link to="/sobre-mi" className="inline-flex items-center text-[var(--color-brand-500)] font-medium hover:text-[var(--color-brand-600)] transition-colors group/link">
-            Leer perfil completo
+            {t.home.readProfile}
             <ArrowRight size={16} className="ml-2 group-hover/link:translate-x-1 transition-transform" />
           </Link>
         </motion.div>
@@ -266,12 +272,12 @@ export default function Home() {
           <div className="h-12 w-12 bg-[#2a2a2a] rounded-xl flex items-center justify-center mb-6 border border-[#444] text-[var(--color-brand-500)]">
             <Terminal size={24} />
           </div>
-          <h2 className="text-2xl font-bold mb-4">Mis Proyectos</h2>
+          <h2 className="text-2xl font-bold mb-4">{t.home.projectsTitle}</h2>
           <p className="text-zinc-400 mb-8 leading-relaxed">
-            Explora una selección de mis trabajos más recientes. Aplicaciones web, diseños interactivos y soluciones de código que demuestran mis capacidades técnicas y creativas.
+            {t.home.projectsDescription}
           </p>
           <Link to="/proyectos" className="inline-flex items-center text-[var(--color-brand-500)] font-medium hover:text-[var(--color-brand-600)] transition-colors group/link">
-            Explorar portfolio
+            {t.home.explorePortfolio}
             <ArrowRight size={16} className="ml-2 group-hover/link:translate-x-1 transition-transform" />
           </Link>
         </motion.div>

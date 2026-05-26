@@ -1,6 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Download, Menu, X } from 'lucide-react';
+import { useState } from 'react';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+import { useLanguage } from '../context/LanguageContext';
 
 const Github = ({ size = 24 }: { size?: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -16,23 +20,60 @@ const Linkedin = ({ size = 24 }: { size?: number }) => (
     <circle cx="4" cy="4" r="2" />
   </svg>
 );
-import { useState } from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const navLinks = [
-  { name: 'Inicio', path: '/' },
-  { name: 'Sobre mí', path: '/sobre-mi' },
-  { name: 'Proyectos', path: '/proyectos' },
-];
+function LanguageSwitch({
+  language,
+  setLanguage,
+  compact = false
+}: {
+  language: 'es' | 'en';
+  setLanguage: (language: 'es' | 'en') => void;
+  compact?: boolean;
+}) {
+  return (
+    <div className={cn('flex items-center gap-2', compact ? 'w-full justify-between' : '')}>
+      <div className="inline-flex rounded-lg border border-[#333] bg-[#1a1a1a] p-1">
+        <button
+          type="button"
+          onClick={() => setLanguage('es')}
+          className={cn(
+            'px-2.5 py-1 text-xs font-semibold rounded-md transition-colors',
+            language === 'es' ? 'bg-brand-500 text-[#121212]' : 'text-zinc-400 hover:text-white'
+          )}
+          aria-pressed={language === 'es'}
+        >
+          ES
+        </button>
+        <button
+          type="button"
+          onClick={() => setLanguage('en')}
+          className={cn(
+            'px-2.5 py-1 text-xs font-semibold rounded-md transition-colors',
+            language === 'en' ? 'bg-brand-500 text-[#121212]' : 'text-zinc-400 hover:text-white'
+          )}
+          aria-pressed={language === 'en'}
+        >
+          EN
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { language, setLanguage, t } = useLanguage();
+
+  const navLinks = [
+    { name: t.nav.home, path: '/' },
+    { name: t.nav.about, path: '/sobre-mi' },
+    { name: t.nav.projects, path: '/proyectos' }
+  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#121212]/80 backdrop-blur-md border-b border-[#333]">
@@ -98,8 +139,10 @@ export default function Navbar() {
                 className="flex items-center gap-2 px-4 py-2 bg-[var(--color-brand-500)] hover:bg-[var(--color-brand-600)] text-[#121212] font-semibold rounded-lg transition-colors text-sm ml-2"
               >
                 <Download size={16} />
-                CV
+                {t.nav.cv}
               </a>
+
+              <LanguageSwitch language={language} setLanguage={setLanguage} />
             </div>
           </nav>
 
@@ -108,7 +151,7 @@ export default function Navbar() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-zinc-400 hover:text-white p-2"
-              aria-label="Menu"
+              aria-label={t.nav.menu}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -141,12 +184,15 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="flex items-center gap-6 px-3 py-4 mt-4 border-t border-[#333]">
-              <a href="https://github.com/agudotorelloarnau" className="text-zinc-400 hover:text-white">
+              <a href="https://github.com/agudotorelloarnau" target="_blank" rel="noreferrer" className="text-zinc-400 hover:text-white">
                 <Github size={24} />
               </a>
-              <a href="https://www.linkedin.com/in/arnau-agudo-torell%C3%B3-b05587244" className="text-zinc-400 hover:text-white">
+              <a href="https://www.linkedin.com/in/arnau-agudo-torell%C3%B3-b05587244" target="_blank" rel="noreferrer" className="text-zinc-400 hover:text-white">
                 <Linkedin size={24} />
               </a>
+            </div>
+            <div className="px-3 py-2">
+              <LanguageSwitch language={language} setLanguage={setLanguage} compact />
             </div>
             <a
               href="/images/CV_arnauAgudo.pdf"
@@ -154,7 +200,7 @@ export default function Navbar() {
               className="mt-2 flex items-center justify-center gap-2 w-full px-4 py-3 bg-[var(--color-brand-500)] text-[#121212] font-bold rounded-lg"
             >
               <Download size={20} />
-              Descargar CV
+              {t.nav.downloadCv}
             </a>
           </div>
         </motion.div>

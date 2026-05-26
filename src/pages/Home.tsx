@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { motion, useAnimationFrame, useMotionValue } from 'framer-motion';
+import { memo, useEffect, useRef, useState } from 'react';
+import { motion, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
+import type { MotionValue } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Terminal, User } from 'lucide-react';
 import {
@@ -32,6 +33,51 @@ type Technology = {
   color: string;
 };
 
+type OrbitIconProps = {
+  tech: Technology;
+  angle: number;
+  radius: number;
+  rotation: MotionValue<number>;
+  occluderRadius: number;
+  badgeSize: number;
+  className: string;
+  iconSize: number;
+};
+
+function OrbitIcon({
+  tech,
+  angle,
+  radius,
+  rotation,
+  occluderRadius,
+  badgeSize,
+  className,
+  iconSize
+}: OrbitIconProps) {
+  const opacity = useTransform(rotation, (currentRotation) => {
+    const phase = ((currentRotation + angle) * Math.PI) / 180;
+    const x = radius * Math.sin(phase);
+    const z = radius * Math.cos(phase);
+    const isBehind = z < 0;
+    const fullyInsideOccluder = Math.abs(x) <= occluderRadius - badgeSize / 2;
+
+    return isBehind && fullyInsideOccluder ? 0 : 1;
+  });
+
+  return (
+    <motion.div
+      aria-label={tech.name}
+      className={className}
+      style={{
+        transform: `rotateY(${angle}deg) translateZ(${radius}px) rotateY(${-angle}deg)`,
+        opacity
+      }}
+    >
+      <tech.Icon size={iconSize} style={{ color: tech.color }} aria-hidden="true" />
+    </motion.div>
+  );
+}
+
 const technologies: Technology[] = [
   { name: 'HTML5', Icon: SiHtml5, color: '#E34F26' },
   { name: 'CSS3', Icon: SiCss, color: '#1572B6' },
@@ -47,6 +93,110 @@ const technologies: Technology[] = [
   { name: 'Python', Icon: SiPython, color: '#3776AB' }
 ];
 
+const outerTechnologies = technologies.slice(0, 8);
+const innerTechnologies = technologies.slice(8);
+
+const TechnologiesCarousel = memo(function TechnologiesCarousel() {
+  const outerRotation = useMotionValue(0);
+  const innerRotation = useMotionValue(0);
+  const scrollBoostRef = useRef(0);
+  const lastScrollYRef = useRef(0);
+
+  useEffect(() => {
+    lastScrollYRef.current = window.scrollY;
+
+    const handleScroll = () => {
+      const delta = window.scrollY - lastScrollYRef.current;
+      lastScrollYRef.current = window.scrollY;
+
+      const nextBoost = delta * 0.05;
+      scrollBoostRef.current = Math.max(-10, Math.min(10, nextBoost));
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useAnimationFrame((_, deltaMs) => {
+    scrollBoostRef.current *= 0.92;
+
+    const boost = scrollBoostRef.current;
+    const outerSpeed = 16 + boost * 2;
+    const innerSpeed = 24 + boost * 2.5;
+
+    const nextOuter = (outerRotation.get() + (outerSpeed * deltaMs) / 1000) % 360;
+    const nextInner = (innerRotation.get() - (innerSpeed * deltaMs) / 1000) % 360;
+
+    outerRotation.set(nextOuter);
+    innerRotation.set(nextInner);
+  });
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.6 }}
+      className="mb-20"
+    >
+      <div
+        className="relative mx-auto flex h-[360px] w-full max-w-4xl items-center justify-center [perspective:1200px]"
+      >
+        <div className="absolute z-10 h-32 w-32 rounded-full bg-brand-500/20 blur-3xl" />
+        <div className="absolute z-10 h-52 w-52 rounded-full border border-brand-500/15 bg-[#111111]" />
+        <div className="absolute z-0 h-80 w-80 rounded-full border border-white/8" />
+
+        <motion.div
+          style={{ rotateY: outerRotation }}
+          className="absolute z-20 h-80 w-80 [transform-style:preserve-3d]"
+        >
+          {outerTechnologies.map((tech, index) => {
+            const angle = (360 / outerTechnologies.length) * index;
+
+            return (
+              <OrbitIcon
+                key={`outer-${tech.name}`}
+                tech={tech}
+                angle={angle}
+                radius={180}
+                rotation={outerRotation}
+                occluderRadius={104}
+                badgeSize={56}
+                className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border border-white/10 bg-[#101010]/90 shadow-[0_8px_24px_rgba(0,0,0,0.4)] backdrop-blur"
+                iconSize={30}
+              />
+            );
+          })}
+        </motion.div>
+
+        <motion.div
+          style={{ rotateY: innerRotation }}
+          className="absolute z-20 h-56 w-56 [transform-style:preserve-3d]"
+        >
+          {innerTechnologies.map((tech, index) => {
+            const angle = (360 / innerTechnologies.length) * index;
+
+            return (
+              <OrbitIcon
+                key={`inner-${tech.name}`}
+                tech={tech}
+                angle={angle}
+                radius={110}
+                rotation={innerRotation}
+                occluderRadius={104}
+                badgeSize={48}
+                className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border border-white/10 bg-[#0d0d0d]/90 shadow-[0_6px_20px_rgba(0,0,0,0.35)] backdrop-blur"
+                iconSize={24}
+              />
+            );
+          })}
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+});
+
 export default function Home() {
   const { t } = useLanguage();
   const [typedText, setTypedText] = useState('');
@@ -54,13 +204,7 @@ export default function Home() {
   const heroText = `${t.home.heroName}\n${t.home.heroRole}`;
 
   const [typedName, typedRole = ''] = typedText.split('\n');
-  const outerTechnologies = technologies.slice(0, 8);
-  const innerTechnologies = technologies.slice(8);
 
-  const outerRotation = useMotionValue(0);
-  const innerRotation = useMotionValue(0);
-  const scrollBoostRef = useRef(0);
-  const lastScrollYRef = useRef(0);
   useEffect(() => {
     setTypedText('');
     setIsDeleting(false);
@@ -96,36 +240,6 @@ export default function Home() {
     return () => window.clearTimeout(timeoutId);
   }, [typedText, isDeleting]);
 
-  useEffect(() => {
-    lastScrollYRef.current = window.scrollY;
-
-    const handleScroll = () => {
-      const delta = window.scrollY - lastScrollYRef.current;
-      lastScrollYRef.current = window.scrollY;
-
-      const nextBoost = delta * 0.05;
-      scrollBoostRef.current = Math.max(-10, Math.min(10, nextBoost));
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useAnimationFrame((_, deltaMs) => {
-    scrollBoostRef.current *= 0.92;
-
-    const boost = scrollBoostRef.current;
-    const outerSpeed = 16 + boost * 2;
-    const innerSpeed = 24 + boost * 2.5;
-
-    const nextOuter = (outerRotation.get() + (outerSpeed * deltaMs) / 1000) % 360;
-    const nextInner = (innerRotation.get() - (innerSpeed * deltaMs) / 1000) % 360;
-
-    outerRotation.set(nextOuter);
-    innerRotation.set(nextInner);
-  });
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
       {/* Hero Section */}
@@ -146,93 +260,41 @@ export default function Home() {
           {t.home.availableForWork}
         </motion.div>
 
-        <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-bold mb-8 tracking-tight" aria-label={heroText}>
-          <span className="text-brand-500">{typedName}</span>
-          {!typedText.includes('\n') && (
-            <motion.span
-              aria-hidden="true"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 1, 1, 0] }}
-              transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
-              className="ml-2 inline-block text-brand-500"
-            >
-              |
-            </motion.span>
-          )}
-        </motion.h1>
+        <div className="w-full min-h-[152px] md:min-h-[214px]">
+          <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-bold mb-6 md:mb-8 tracking-tight min-h-[58px] md:min-h-[92px]" aria-label={heroText}>
+            <span className="text-brand-500">{typedName}</span>
+            {!typedText.includes('\n') && (
+              <motion.span
+                aria-hidden="true"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 1, 1, 0] }}
+                transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
+                className="ml-2 inline-block text-brand-500"
+              >
+                |
+              </motion.span>
+            )}
+          </motion.h1>
 
-        <motion.p variants={fadeInUp} className="text-lg md:text-2xl text-zinc-300 font-medium tracking-wide">
-          {typedRole}
-          {typedText.includes('\n') && (
-            <motion.span
-              aria-hidden="true"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 1, 1, 0] }}
-              transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
-              className="ml-1 inline-block text-brand-500"
-            >
-              |
-            </motion.span>
-          )}
-        </motion.p>
+          <motion.p variants={fadeInUp} className="text-lg md:text-2xl text-zinc-300 font-medium tracking-wide min-h-[30px] md:min-h-[38px]">
+            {typedRole || '\u00A0'}
+            {typedText.includes('\n') && (
+              <motion.span
+                aria-hidden="true"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 1, 1, 0] }}
+                transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
+                className="ml-1 inline-block text-brand-500"
+              >
+                |
+              </motion.span>
+            )}
+          </motion.p>
+        </div>
       </motion.section>
 
       {/* Technologies Carousel */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 0.6 }}
-        className="mb-20"
-      >
-        <div
-          className="relative mx-auto flex h-[360px] w-full max-w-4xl items-center justify-center [perspective:1200px]"
-        >
-          <div className="absolute h-32 w-32 rounded-full bg-brand-500/20 blur-3xl" />
-          <div className="absolute h-52 w-52 rounded-full border border-brand-500/15" />
-          <div className="absolute h-80 w-80 rounded-full border border-white/8" />
-
-          <motion.div
-            style={{ rotateY: outerRotation }}
-            className="absolute h-80 w-80 [transform-style:preserve-3d]"
-          >
-            {outerTechnologies.map((tech, index) => {
-              const angle = (360 / outerTechnologies.length) * index;
-
-              return (
-                <div
-                  key={`outer-${tech.name}`}
-                  aria-label={tech.name}
-                  className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border border-white/10 bg-[#101010]/90 shadow-[0_8px_24px_rgba(0,0,0,0.4)] backdrop-blur"
-                  style={{ transform: `rotateY(${angle}deg) translateZ(180px) rotateY(${-angle}deg)` }}
-                >
-                  <tech.Icon size={30} style={{ color: tech.color }} aria-hidden="true" />
-                </div>
-              );
-            })}
-          </motion.div>
-
-          <motion.div
-            style={{ rotateY: innerRotation }}
-            className="absolute h-56 w-56 [transform-style:preserve-3d]"
-          >
-            {innerTechnologies.map((tech, index) => {
-              const angle = (360 / innerTechnologies.length) * index;
-
-              return (
-                <div
-                  key={`inner-${tech.name}`}
-                  aria-label={tech.name}
-                  className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border border-white/10 bg-[#0d0d0d]/90 shadow-[0_6px_20px_rgba(0,0,0,0.35)] backdrop-blur"
-                  style={{ transform: `rotateY(${angle}deg) translateZ(110px) rotateY(${-angle}deg)` }}
-                >
-                  <tech.Icon size={24} style={{ color: tech.color }} aria-hidden="true" />
-                </div>
-              );
-            })}
-          </motion.div>
-        </div>
-      </motion.section>
+      <TechnologiesCarousel />
 
       {/* Summary Section */}
       <section className="grid md:grid-cols-2 gap-8 relative z-10">

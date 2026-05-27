@@ -29,9 +29,9 @@ export const translations = {
         about: {
             role: 'Desarrollador Web y Tecnico de Sistemas',
             introOne:
-                'Soy un profesional en formacion continua, apasionado por la tecnologia y el desarrollo de software. Me caracterizo por mi autoconfianza, gran empatia e iniciativa para afrontar nuevos retos.',
+                'Soy un desarrollador web en formacion continua, apasionado por crear aplicaciones modernas, utiles y bien estructuradas. Me caracterizo por mi autoconfianza, gran empatia e iniciativa para afrontar nuevos retos.',
             introTwo:
-                'Tengo una solida base en sistemas microinformaticos y redes, y actualmente estoy ampliando mis conocimientos enfocado en el Desarrollo de Aplicaciones Web. Disfruto trabajando en equipo y planificando soluciones eficaces.',
+                'Tengo una solida base en sistemas microinformaticos y redes, que complemento con un enfoque practico en Desarrollo de Aplicaciones Web usando tecnologias frontend y backend. Disfruto trabajando en equipo y planificando soluciones eficaces.',
             contact: 'Contacto',
             location: 'Barcelona, Espana',
             languages: 'Idiomas',
@@ -63,7 +63,7 @@ export const translations = {
             educationTitle: 'Formacion',
             education: [
                 {
-                    date: '2026 (En curso)',
+                    date: '2026',
                     title: 'Desarrollo de Aplicaciones Web',
                     school: 'Centro FP Llefia'
                 },

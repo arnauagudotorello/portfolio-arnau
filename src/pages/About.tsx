@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Briefcase, GraduationCap, Code2, UserCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../i18n/translations';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -13,7 +14,16 @@ const staggerContainer = {
 };
 
 export default function About() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const fallbackAbout = translations.es.about;
+  const experiences = Array.isArray(t.about.experiences) && t.about.experiences.length > 0
+    ? t.about.experiences
+    : fallbackAbout.experiences;
+  const education = Array.isArray(t.about.education) && t.about.education.length > 0
+    ? t.about.education
+    : fallbackAbout.education;
+  const experienceTitle = t.about.experienceTitle || fallbackAbout.experienceTitle;
+  const educationTitle = t.about.educationTitle || fallbackAbout.educationTitle;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
@@ -65,16 +75,22 @@ export default function About() {
 
       <div className="grid md:grid-cols-2 gap-16">
         {/* Experience */}
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}>
+        <motion.div
+          key={`experience-${language}`}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
           <div className="flex items-center gap-3 mb-8">
             <div className="p-3 bg-[var(--color-brand-500)]/10 rounded-lg text-[var(--color-brand-500)]">
               <Briefcase size={24} />
             </div>
-            <h2 className="text-3xl font-bold">{t.about.experienceTitle}</h2>
+            <h2 className="text-3xl font-bold">{experienceTitle}</h2>
           </div>
 
           <div className="space-y-8 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-[#333] before:to-transparent">
-            {t.about.experiences.map((experience, index) => (
+            {experiences.map((experience, index) => (
               <motion.div key={experience.date + experience.title} variants={fadeIn} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
                 <div className={`flex items-center justify-center w-4 h-4 rounded-full border-4 border-[#121212] absolute left-0 md:left-1/2 -translate-x-1/2 shadow shrink-0 z-10 ${index === 0 ? 'bg-[var(--color-brand-500)]' : 'bg-zinc-600'}`}></div>
                 <div className="w-[calc(100%-2rem)] md:w-[calc(50%-2rem)] p-6 rounded-xl bg-[#1e1e1e] border border-[#333] group-hover:border-[var(--color-brand-500)]/50 transition-colors ml-8 md:ml-0">
@@ -91,16 +107,22 @@ export default function About() {
         </motion.div>
 
         {/* Education & Skills */}
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}>
+        <motion.div
+          key={`education-${language}`}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
           <div className="flex items-center gap-3 mb-8">
             <div className="p-3 bg-[var(--color-brand-500)]/10 rounded-lg text-[var(--color-brand-500)]">
               <GraduationCap size={24} />
             </div>
-            <h2 className="text-3xl font-bold">{t.about.educationTitle}</h2>
+            <h2 className="text-3xl font-bold">{educationTitle}</h2>
           </div>
 
           <div className="space-y-6 mb-12">
-            {t.about.education.map((educationItem) => (
+            {education.map((educationItem) => (
               <motion.div key={educationItem.date + educationItem.title} variants={fadeIn} className="p-6 rounded-xl bg-[#1e1e1e] border border-[#333]">
                 <div className="text-[var(--color-brand-500)] font-mono text-sm mb-2">{educationItem.date}</div>
                 <h3 className="text-lg font-bold text-white mb-1">{educationItem.title}</h3>

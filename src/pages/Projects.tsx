@@ -22,11 +22,11 @@ const projects = [
   },
   {
     id: 2,
-    image: '/images/projectebacalla.png',
-    tags: ['Vite', 'React', 'noSQL', 'Tailwind CSS', 'IA'],
+    image: '/images/gestordetareas.png',
+    tags: ['React', 'JavaScript', 'Tailwind CSS', 'Supabase'],
     links: {
-      github: '#',
-      live: 'https://frontiabacalla.vercel.app'
+      github: 'https://github.com/edgarfpllefia/gestor-notas',
+      live: 'https://gestor-notas-sigma.vercel.app'
     }
   },
   {
@@ -40,11 +40,11 @@ const projects = [
   },
   {
     id: 4,
-    image: '/images/project-placeholder.jpg',
+    image: '/images/gestorreservasgym.png',
     tags: ['Next.js', 'Tailwind CSS', 'JWT', 'Laravel', 'MySQL'],
     links: {
-      github: '#',
-      live: '#'
+      github: 'https://github.com/arnauagudofpllefia/proyectofinal',
+      live: 'https://gymnau.vercel.app'
     }
   }
 ];

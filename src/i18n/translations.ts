@@ -103,9 +103,9 @@ export const translations = {
                 },
                 {
                     id: 2,
-                    title: 'Proyecto Pescaderia',
+                    title: 'Gestor de Tareas',
                     description:
-                        'Plataforma de comercio electronico para una pescaderia local, con catalogo de productos.'
+                        'Aplicacion web para gestionar tareas diarias con creacion, edicion, prioridades, filtros y seguimiento del estado en tiempo real.'
                 },
                 {
                     id: 3,
@@ -226,9 +226,9 @@ export const translations = {
                 },
                 {
                     id: 2,
-                    title: 'Fish Store Project',
+                    title: 'Task Manager',
                     description:
-                        'E-commerce platform for a local fish store with a full product catalog.'
+                        'Web app to manage daily tasks with create/edit actions, priorities, filters, and real-time status tracking.'
                 },
                 {
                     id: 3,

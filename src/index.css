@@ -15,9 +15,42 @@
     @apply bg-bg-dark text-zinc-200 font-sans antialiased selection:bg-brand-500 selection:text-white;
     overflow-x: hidden;
   }
+
+  a:focus-visible,
+  button:focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-bg-dark;
+  }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-display font-bold text-white;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 100;
+  border-radius: 0.5rem;
+  background: #8ca8a6;
+  color: #121212;
+  font-weight: 700;
+  padding: 0.6rem 0.9rem;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

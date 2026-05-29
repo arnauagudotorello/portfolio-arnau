@@ -1,6 +1,7 @@
 import { motion, type Variants } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { usePageSeo } from '../hooks/usePageSeo';
 
 const Github = ({ size = 24 }: { size?: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -73,6 +74,11 @@ const itemVariants: Variants = {
 export default function Projects() {
   const { t } = useLanguage();
 
+  usePageSeo({
+    title: `${t.projects.heading} | Arnau Agudo`,
+    description: t.projects.items.map((item) => item.title).join(', ')
+  });
+
   const localizedProjects = projects.map((project) => {
     const localizedContent = t.projects.items.find((item) => item.id === project.id);
 
@@ -100,7 +106,7 @@ export default function Projects() {
         animate="visible"
         className="grid md:grid-cols-2 gap-8"
       >
-        {localizedProjects.map((project) => (
+        {localizedProjects.map((project, index) => (
           <motion.article
             key={project.id}
             variants={itemVariants}
@@ -110,6 +116,9 @@ export default function Projects() {
               <img
                 src={project.image}
                 alt={project.title}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                fetchPriority={index === 0 ? 'high' : 'auto'}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
@@ -135,20 +144,41 @@ export default function Projects() {
               </div>
 
               <div className="flex items-center gap-4 mt-auto pt-6 border-t border-[#333]">
-                <a
-                  href={project.links.github}
-                  className="flex items-center gap-2 text-sm font-medium text-zinc-300 hover:text-white transition-colors"
-                >
-                  <Github size={18} />
-                  <span>{t.projects.code}</span>
-                </a>
-                <a
-                  href={project.links.live}
-                  className="flex items-center gap-2 text-sm font-medium text-[var(--color-brand-500)] hover:text-[var(--color-brand-600)] transition-colors ml-auto"
-                >
-                  <span>{t.projects.demo}</span>
-                  <ExternalLink size={18} />
-                </a>
+                {project.links.github === '#' ? (
+                  <span className="flex items-center gap-2 text-sm font-medium text-zinc-500" aria-disabled="true">
+                    <Github size={18} />
+                    <span>{t.projects.code}</span>
+                  </span>
+                ) : (
+                  <a
+                    href={project.links.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm font-medium text-zinc-300 hover:text-white transition-colors"
+                    aria-label={`${t.projects.code}: ${project.title}`}
+                  >
+                    <Github size={18} />
+                    <span>{t.projects.code}</span>
+                  </a>
+                )}
+
+                {project.links.live === '#' ? (
+                  <span className="ml-auto flex items-center gap-2 text-sm font-medium text-zinc-500" aria-disabled="true">
+                    <span>{t.projects.demo}</span>
+                    <ExternalLink size={18} />
+                  </span>
+                ) : (
+                  <a
+                    href={project.links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm font-medium text-[var(--color-brand-500)] hover:text-[var(--color-brand-600)] transition-colors ml-auto"
+                    aria-label={`${t.projects.demo}: ${project.title}`}
+                  >
+                    <span>{t.projects.demo}</span>
+                    <ExternalLink size={18} />
+                  </a>
+                )}
               </div>
             </div>
           </motion.article>

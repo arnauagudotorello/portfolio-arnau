@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Briefcase, GraduationCap, Code2, UserCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../i18n/translations';
+import { usePageSeo } from '../hooks/usePageSeo';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -25,6 +26,11 @@ export default function About() {
   const experienceTitle = t.about.experienceTitle || fallbackAbout.experienceTitle;
   const educationTitle = t.about.educationTitle || fallbackAbout.educationTitle;
 
+  usePageSeo({
+    title: `${t.nav.about} | ${t.home.heroName}`,
+    description: t.about.introOne
+  });
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
 
@@ -35,7 +41,13 @@ export default function About() {
       >
         <motion.div variants={fadeIn} className="md:col-span-2 relative">
           <div className="aspect-[4/5] rounded-2xl overflow-hidden border-2 border-[#333] relative z-10">
-            <img src="/images/profile.jpg" alt="Arnau Agudo Torelló" className="w-full h-full object-cover" />
+            <img
+              src="/images/profile.jpg"
+              alt="Arnau Agudo Torelló"
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover"
+            />
           </div>
           <div className="absolute top-4 -right-4 w-full h-full border-2 border-[var(--color-brand-500)] rounded-2xl -z-10 opacity-50"></div>
         </motion.div>

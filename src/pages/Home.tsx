@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef, useState } from 'react';
-import { motion, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useAnimationFrame, useMotionValue, useReducedMotion, useTransform } from 'framer-motion';
 import type { MotionValue } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Terminal, User } from 'lucide-react';
@@ -19,6 +19,7 @@ import {
 } from 'react-icons/si';
 import type { IconType } from 'react-icons';
 import { useLanguage } from '../context/LanguageContext';
+import { usePageSeo } from '../hooks/usePageSeo';
 
 import type { Variants } from 'framer-motion';
 
@@ -97,6 +98,7 @@ const outerTechnologies = technologies.slice(0, 8);
 const innerTechnologies = technologies.slice(8);
 
 const TechnologiesCarousel = memo(function TechnologiesCarousel() {
+  const reduceMotion = useReducedMotion();
   const outerRotation = useMotionValue(0);
   const innerRotation = useMotionValue(0);
   const scrollBoostRef = useRef(0);
@@ -119,6 +121,10 @@ const TechnologiesCarousel = memo(function TechnologiesCarousel() {
   }, []);
 
   useAnimationFrame((_, deltaMs) => {
+    if (reduceMotion) {
+      return;
+    }
+
     scrollBoostRef.current *= 0.92;
 
     const boost = scrollBoostRef.current;
@@ -199,9 +205,15 @@ const TechnologiesCarousel = memo(function TechnologiesCarousel() {
 
 export default function Home() {
   const { t } = useLanguage();
+  const reduceMotion = useReducedMotion();
   const [typedText, setTypedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const heroText = `${t.home.heroName}\n${t.home.heroRole}`;
+
+  usePageSeo({
+    title: `${t.home.heroName} | Portfolio`,
+    description: t.home.projectsDescription
+  });
 
   const [typedName, typedRole = ''] = typedText.split('\n');
 
@@ -211,6 +223,12 @@ export default function Home() {
   }, [heroText]);
 
   useEffect(() => {
+    if (reduceMotion) {
+      setTypedText(heroText);
+      setIsDeleting(false);
+      return;
+    }
+
     const typingSpeed = 100;
     const deletingSpeed = 60;
     const pauseAfterTyping = 1400;
@@ -238,7 +256,7 @@ export default function Home() {
     );
 
     return () => window.clearTimeout(timeoutId);
-  }, [typedText, isDeleting]);
+  }, [typedText, isDeleting, heroText, reduceMotion]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">

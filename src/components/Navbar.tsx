@@ -87,7 +87,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8" aria-label="Navegacion principal">
             <ul className="flex space-x-8">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.path;
@@ -95,6 +95,7 @@ export default function Navbar() {
                   <li key={link.path}>
                     <Link
                       to={link.path}
+                      aria-current={isActive ? 'page' : undefined}
                       className={cn(
                         'relative px-1 py-2 text-sm font-medium transition-colors hover:text-white',
                         isActive ? 'text-white' : 'text-zinc-400'
@@ -152,6 +153,8 @@ export default function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               className="text-zinc-400 hover:text-white p-2"
               aria-label={t.nav.menu}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -162,17 +165,19 @@ export default function Navbar() {
       {/* Mobile Nav */}
       {isOpen && (
         <motion.div
+          id="mobile-menu"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           className="md:hidden bg-[#1e1e1e] border-b border-[#333]"
         >
-          <div className="px-4 pt-2 pb-6 space-y-1">
+          <nav className="px-4 pt-2 pb-6 space-y-1" aria-label="Navegacion movil">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
+                aria-current={location.pathname === link.path ? 'page' : undefined}
                 className={cn(
                   'block px-3 py-3 rounded-md text-base font-medium',
                   location.pathname === link.path
@@ -202,7 +207,7 @@ export default function Navbar() {
               <Download size={20} />
               {t.nav.downloadCv}
             </a>
-          </div>
+          </nav>
         </motion.div>
       )}
     </header>

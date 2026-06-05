@@ -87,7 +87,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8" aria-label="Navegacion principal">
+          <nav className="hidden md:flex items-center gap-8" aria-label="Navegación principal">
             <ul className="flex space-x-8">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.path;
@@ -171,7 +171,7 @@ export default function Navbar() {
           exit={{ opacity: 0, y: -20 }}
           className="md:hidden bg-[#1e1e1e] border-b border-[#333]"
         >
-          <nav className="px-4 pt-2 pb-6 space-y-1" aria-label="Navegacion movil">
+          <nav className="px-4 pt-2 pb-6 space-y-1" aria-label="Navegación móvil">
             {navLinks.map((link) => (
               <Link
                 key={link.path}

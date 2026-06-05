@@ -2,9 +2,9 @@ export const translations = {
     es: {
         nav: {
             home: 'Inicio',
-            about: 'Sobre mi',
+            about: 'Sobre mí',
             projects: 'Proyectos',
-            menu: 'Menu',
+            menu: 'Menú',
             cv: 'CV',
             downloadCv: 'Descargar CV',
             language: 'Idioma'
@@ -15,109 +15,109 @@ export const translations = {
         },
         home: {
             availableForWork: 'Disponible para trabajar',
-            heroName: 'Arnau Agudo Torello',
+            heroName: 'Arnau Agudo Torelló',
             heroRole: 'Desarrollador web',
-            aboutTitle: 'Sobre mi',
+            aboutTitle: 'Sobre mí',
             aboutDescription:
-                'Descubre mi trayectoria academica y profesional. Desde mis inicios en sistemas microinformaticos hasta mi actual formacion en desarrollo web, ademas de mis habilidades y competencias clave.',
+                'Descubre mi trayectoria académica y profesional. Desde mis inicios en sistemas microinformáticos hasta mi actual formación en desarrollo web, además de mis habilidades y competencias clave.',
             readProfile: 'Leer perfil completo',
             projectsTitle: 'Mis Proyectos',
             projectsDescription:
-                'Explora una seleccion de mis trabajos mas recientes. Aplicaciones web, disenos interactivos y soluciones de codigo que demuestran mis capacidades tecnicas y creativas.',
+                'Explora una selección de mis trabajos más recientes. Aplicaciones web, diseños interactivos y soluciones de código que demuestran mis capacidades técnicas y creativas.',
             explorePortfolio: 'Explorar portfolio'
         },
         about: {
-            role: 'Desarrollador Web y Tecnico de Sistemas',
+            role: 'Desarrollador web y técnico de sistemas',
             introOne:
-                'Soy un desarrollador web en formacion continua, apasionado por crear aplicaciones modernas, utiles y bien estructuradas. Me caracterizo por mi autoconfianza, gran empatia e iniciativa para afrontar nuevos retos.',
+                'Soy un desarrollador web en formación continua, apasionado por crear aplicaciones modernas, útiles y bien estructuradas. Me caracterizo por mi autoconfianza, gran empatía e iniciativa para afrontar nuevos retos.',
             introTwo:
-                'Tengo una solida base en sistemas microinformaticos y redes, que complemento con un enfoque practico en Desarrollo de Aplicaciones Web usando tecnologias frontend y backend. Disfruto trabajando en equipo y planificando soluciones eficaces.',
+                'Tengo una sólida base en sistemas microinformáticos y redes, que complemento con un enfoque práctico en desarrollo de aplicaciones web usando tecnologías frontend y backend. Disfruto trabajando en equipo y planificando soluciones eficaces.',
             contact: 'Contacto',
-            location: 'Barcelona, Espana',
+            location: 'Barcelona, España',
             languages: 'Idiomas',
-            languageItems: ['Espanol (Nativo)', 'Catalan (Nativo)', 'Ingles (A2)'],
+            languageItems: ['Español (nativo)', 'Catalán (nativo)', 'Inglés (A2)'],
             experienceTitle: 'Experiencia',
             experiences: [
                 {
                     date: '12/2025 - 06/2026',
-                    title: 'Desarrollador web (Practicas)',
+                    title: 'Desarrollador web (prácticas)',
                     company: 'Reactivacio Badalona SA (520h)'
                 },
                 {
                     date: '09/2023 - 12/2023',
-                    title: 'Tecnico de sistemas (Practicas)',
+                    title: 'Técnico de sistemas (prácticas)',
                     company: 'HERFRI SL. (200 horas)'
                 },
                 {
                     date: '04/2023 - 06/2023',
-                    title: 'Tecnico de sistemas (Practicas)',
+                    title: 'Técnico de sistemas (prácticas)',
                     company: 'Revolution Computer (184 horas)'
                 },
                 {
                     date: '07/2022',
                     title: 'Certificado de Profesionalidad Nivel 2',
                     company: 'HERFRI SL. (40 horas)',
-                    note: 'Tecnico de sistemas en practicas.'
+                    note: 'Técnico de sistemas en prácticas.'
                 }
             ],
-            educationTitle: 'Formacion',
+            educationTitle: 'Formación',
             education: [
                 {
                     date: '2026',
                     title: 'Desarrollo de Aplicaciones Web',
-                    school: 'Centro FP Llefia'
+                    school: 'Centro FP Llefià'
                 },
                 {
                     date: '2023',
-                    title: 'Sistemas Microinformaticos y Redes',
-                    school: 'Centro FP Llefia'
+                    title: 'Sistemas Microinformáticos y Redes',
+                    school: 'Centro FP Llefià'
                 },
                 {
                     date: '2022',
-                    title: 'Curso SOC Sistemas Microinformaticos (600h)',
-                    school: 'Centro FP Llefia'
+                    title: 'Curso SOC Sistemas Microinformáticos (600h)',
+                    school: 'Centro FP Llefià'
                 }
             ],
-            technologiesTitle: 'Tecnologias',
+            technologiesTitle: 'Tecnologías',
             keySkillsTitle: 'Competencias Clave',
             skills: [
-                { name: 'Empatia', level: 'Muy Avanzado' },
-                { name: 'Planificacion y organizacion', level: 'Muy Avanzado' },
-                { name: 'Trabajo en equipo', level: 'Muy Avanzado' },
+                { name: 'Empatía', level: 'Muy avanzado' },
+                { name: 'Planificación y organización', level: 'Muy avanzado' },
+                { name: 'Trabajo en equipo', level: 'Muy avanzado' },
                 { name: 'Autoconfianza', level: 'Avanzado' },
                 { name: 'Iniciativa', level: 'Avanzado' },
-                { name: 'Comunicacion', level: 'Avanzado' },
-                { name: 'Resolucion de problemas', level: 'Avanzado' }
+                { name: 'Comunicación', level: 'Avanzado' },
+                { name: 'Resolución de problemas', level: 'Avanzado' }
             ]
         },
         projects: {
             heading: 'Proyectos Destacados',
-            code: 'Codigo',
+            code: 'Código',
             demo: 'Ver demo',
             items: [
                 {
                     id: 1,
                     title: 'Vinacoteca',
                     description:
-                        'Aplicacion web para la gestion de una vinacoteca, permitiendo a los usuarios explorar, agregar y organizar su coleccion de vinos con una interfaz intuitiva y moderna.'
+                        'Aplicación web para la gestión de una vinacoteca, permitiendo a los usuarios explorar, agregar y organizar su colección de vinos con una interfaz intuitiva y moderna.'
                 },
                 {
                     id: 2,
                     title: 'Gestor de Tareas',
                     description:
-                        'Aplicacion web para gestionar tareas diarias con creacion, edicion, prioridades, filtros y seguimiento del estado en tiempo real.'
+                        'Aplicación web para gestionar tareas diarias con creación, edición, prioridades, filtros y seguimiento del estado en tiempo real.'
                 },
                 {
                     id: 3,
-                    title: 'Documentacion Shopify',
+                    title: 'Documentación Shopify',
                     description:
-                        'Rediseno de la documentacion de Shopify, mejorando la navegacion y la experiencia del usuario para desarrolladores que integran con la plataforma.'
+                        'Rediseño de la documentación de Shopify, mejorando la navegación y la experiencia del usuario para desarrolladores que integran con la plataforma.'
                 },
                 {
                     id: 4,
                     title: 'App de reservas de gimnasio (en desarrollo)',
                     description:
-                        'Aplicacion movil para la gestion de reservas en un gimnasio, permitiendo a los usuarios reservar maquinas y gestionar su membresia.'
+                        'Aplicación móvil para la gestión de reservas en un gimnasio, permitiendo a los usuarios reservar máquinas y gestionar su membresía.'
                 }
             ]
         }
@@ -138,7 +138,7 @@ export const translations = {
         },
         home: {
             availableForWork: 'Available for work',
-            heroName: 'Arnau Agudo Torello',
+            heroName: 'Arnau Agudo Torelló',
             heroRole: 'Web Developer',
             aboutTitle: 'About me',
             aboutDescription:

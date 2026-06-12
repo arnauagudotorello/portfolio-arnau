@@ -16,7 +16,7 @@ const projects = [
     image: '/images/vinacoteca.png',
     tags: ['React', 'Tailwind CSS', 'Node.js', 'noSQL'],
     links: {
-      github: 'https://github.com/agudotorelloarnau/Vinacoteca',
+      github: 'https://github.com/arnauagudotorello/Vinacoteca',
       live: 'https://proyecto-api-sigma.vercel.app'
     }
   },
@@ -34,7 +34,7 @@ const projects = [
     image: '/images/documentacionShopify.png',
     tags: ['PHP', 'MySQL', 'Bootstrap'],
     links: {
-      github: 'https://github.com/arnauagudofpllefia/codespaces-for-php-demo/tree/proyectoShopify',
+      github: 'https://github.com/arnauagudotorello/codespaces-for-php-demo/tree/proyectoShopify',
       live: 'https://proyectoshopify.onrender.com'
     }
   },
@@ -43,7 +43,7 @@ const projects = [
     image: '/images/gestorreservasgym.png',
     tags: ['Next.js', 'Tailwind CSS', 'JWT', 'Laravel', 'MySQL'],
     links: {
-      github: 'https://github.com/arnauagudofpllefia/proyectofinal',
+      github: 'https://github.com/arnauagudotorello/proyectofinal',
       live: 'https://gymnau.vercel.app'
     }
   }

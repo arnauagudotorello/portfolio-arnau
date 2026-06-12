@@ -117,7 +117,7 @@ export default function Navbar() {
 
             <div className="flex items-center gap-4 ml-4 border-l border-[#333] pl-6">
               <a
-                href="https://github.com/agudotorelloarnau"
+                href="https://github.com/arnauagudotorello"
                 target="_blank"
                 rel="noreferrer"
                 className="text-zinc-400 hover:text-white transition-colors"
@@ -189,7 +189,7 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="flex items-center gap-6 px-3 py-4 mt-4 border-t border-[#333]">
-              <a href="https://github.com/agudotorelloarnau" target="_blank" rel="noreferrer" className="text-zinc-400 hover:text-white">
+              <a href="https://github.com/arnauagudotorello" target="_blank" rel="noreferrer" className="text-zinc-400 hover:text-white">
                 <Github size={24} />
               </a>
               <a href="https://www.linkedin.com/in/arnau-agudo-torell%C3%B3-b05587244" target="_blank" rel="noreferrer" className="text-zinc-400 hover:text-white">

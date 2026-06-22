@@ -5,23 +5,41 @@
   --color-brand-600: #7a9492;
   --color-bg-dark: #121212;
   --color-bg-card: #1e1e1e;
-  
+
   --font-sans: 'Inter', sans-serif;
   --font-display: 'Syne', sans-serif;
 }
 
 @layer base {
+
+  html,
+  body,
+  #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-x: clip;
+    overscroll-behavior-x: none;
+  }
+
   body {
     @apply bg-bg-dark text-zinc-200 font-sans antialiased selection:bg-brand-500 selection:text-white;
     overflow-x: hidden;
+    overflow-x: clip;
+    touch-action: pan-y pinch-zoom;
   }
 
   a:focus-visible,
   button:focus-visible {
     @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-bg-dark;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-display font-bold text-white;
   }
 }
@@ -44,6 +62,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -58,13 +77,16 @@
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: #121212;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #333;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #8ca8a6;
 }

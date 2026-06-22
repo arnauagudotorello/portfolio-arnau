@@ -147,15 +147,15 @@ const TechnologiesCarousel = memo(function TechnologiesCarousel() {
       className="mb-20"
     >
       <div
-        className="relative mx-auto flex h-[360px] w-full max-w-4xl items-center justify-center [perspective:1200px]"
+        className="relative mx-auto flex h-[300px] w-full max-w-4xl items-center justify-center overflow-hidden md:h-[360px] [perspective:1200px]"
       >
         <div className="absolute z-10 h-32 w-32 rounded-full bg-brand-500/20 blur-3xl" />
-        <div className="absolute z-10 h-52 w-52 rounded-full border border-brand-500/15 bg-[#111111]" />
-        <div className="absolute z-0 h-80 w-80 rounded-full border border-white/8" />
+        <div className="absolute z-10 h-44 w-44 rounded-full border border-brand-500/15 bg-[#111111] md:h-52 md:w-52" />
+        <div className="absolute z-0 h-64 w-64 rounded-full border border-white/8 md:h-80 md:w-80" />
 
         <motion.div
           style={{ rotateY: outerRotation }}
-          className="absolute z-20 h-80 w-80 [transform-style:preserve-3d]"
+          className="absolute z-20 h-64 w-64 md:h-80 md:w-80 [transform-style:preserve-3d]"
         >
           {outerTechnologies.map((tech, index) => {
             const angle = (360 / outerTechnologies.length) * index;
@@ -165,12 +165,12 @@ const TechnologiesCarousel = memo(function TechnologiesCarousel() {
                 key={`outer-${tech.name}`}
                 tech={tech}
                 angle={angle}
-                radius={180}
+                radius={150}
                 rotation={outerRotation}
-                occluderRadius={104}
-                badgeSize={56}
-                className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border border-white/10 bg-[#101010]/90 shadow-[0_8px_24px_rgba(0,0,0,0.4)] backdrop-blur"
-                iconSize={30}
+                occluderRadius={88}
+                badgeSize={48}
+                className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border border-white/10 bg-[#101010]/90 shadow-[0_8px_24px_rgba(0,0,0,0.4)] backdrop-blur md:h-14 md:w-14 md:rounded-2xl"
+                iconSize={24}
               />
             );
           })}
@@ -178,7 +178,7 @@ const TechnologiesCarousel = memo(function TechnologiesCarousel() {
 
         <motion.div
           style={{ rotateY: innerRotation }}
-          className="absolute z-20 h-56 w-56 [transform-style:preserve-3d]"
+          className="absolute z-20 h-48 w-48 md:h-56 md:w-56 [transform-style:preserve-3d]"
         >
           {innerTechnologies.map((tech, index) => {
             const angle = (360 / innerTechnologies.length) * index;
@@ -188,12 +188,12 @@ const TechnologiesCarousel = memo(function TechnologiesCarousel() {
                 key={`inner-${tech.name}`}
                 tech={tech}
                 angle={angle}
-                radius={110}
+                radius={90}
                 rotation={innerRotation}
-                occluderRadius={104}
-                badgeSize={48}
-                className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-xl border border-white/10 bg-[#0d0d0d]/90 shadow-[0_6px_20px_rgba(0,0,0,0.35)] backdrop-blur"
-                iconSize={24}
+                occluderRadius={88}
+                badgeSize={40}
+                className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-lg border border-white/10 bg-[#0d0d0d]/90 shadow-[0_6px_20px_rgba(0,0,0,0.35)] backdrop-blur md:h-12 md:w-12 md:rounded-xl"
+                iconSize={20}
               />
             );
           })}
@@ -259,7 +259,7 @@ export default function Home() {
   }, [typedText, isDeleting, heroText, reduceMotion]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+    <div className="max-w-7xl mx-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 py-12 md:py-24">
       {/* Hero Section */}
       <motion.section
         initial="hidden"
